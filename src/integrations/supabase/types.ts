@@ -14,16 +14,329 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      community_posts: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          is_anonymous: boolean
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
+      grocery_items: {
+        Row: {
+          category: string
+          checked: boolean
+          created_at: string
+          id: string
+          name: string
+          quantity: string | null
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          checked?: boolean
+          created_at?: string
+          id?: string
+          name: string
+          quantity?: string | null
+          user_id: string
+        }
+        Update: {
+          category?: string
+          checked?: boolean
+          created_at?: string
+          id?: string
+          name?: string
+          quantity?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      habit_logs: {
+        Row: {
+          count: number
+          created_at: string
+          habit_id: string
+          id: string
+          log_date: string
+          user_id: string
+        }
+        Insert: {
+          count?: number
+          created_at?: string
+          habit_id: string
+          id?: string
+          log_date?: string
+          user_id: string
+        }
+        Update: {
+          count?: number
+          created_at?: string
+          habit_id?: string
+          id?: string
+          log_date?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "habit_logs_habit_id_fkey"
+            columns: ["habit_id"]
+            isOneToOne: false
+            referencedRelation: "habits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      habits: {
+        Row: {
+          created_at: string
+          icon: string
+          id: string
+          target_per_day: number
+          title: string
+          user_id: string
+          xp_reward: number
+        }
+        Insert: {
+          created_at?: string
+          icon?: string
+          id?: string
+          target_per_day?: number
+          title: string
+          user_id: string
+          xp_reward?: number
+        }
+        Update: {
+          created_at?: string
+          icon?: string
+          id?: string
+          target_per_day?: number
+          title?: string
+          user_id?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          id: string
+          product: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents?: number
+          created_at?: string
+          id?: string
+          product: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          id?: string
+          product?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      plans: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          payload: Json
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          payload?: Json
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          payload?: Json
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string
+          gender: string | null
+          goal: string | null
+          id: string
+          is_public: boolean
+          referral_code: string
+          referred_by: string | null
+          streak: number
+          theme: Database["public"]["Enums"]["theme_pref"]
+          updated_at: string
+          xp: number
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string
+          gender?: string | null
+          goal?: string | null
+          id: string
+          is_public?: boolean
+          referral_code?: string
+          referred_by?: string | null
+          streak?: number
+          theme?: Database["public"]["Enums"]["theme_pref"]
+          updated_at?: string
+          xp?: number
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          gender?: string | null
+          goal?: string | null
+          id?: string
+          is_public?: boolean
+          referral_code?: string
+          referred_by?: string | null
+          streak?: number
+          theme?: Database["public"]["Enums"]["theme_pref"]
+          updated_at?: string
+          xp?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_referred_by_fkey"
+            columns: ["referred_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recipes: {
+        Row: {
+          created_at: string
+          id: string
+          ingredients: Json
+          is_published: boolean
+          macros: Json
+          steps: Json
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ingredients?: Json
+          is_published?: boolean
+          macros?: Json
+          steps?: Json
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ingredients?: Json
+          is_published?: boolean
+          macros?: Json
+          steps?: Json
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          commission_cents: number
+          created_at: string
+          id: string
+          referred_email: string | null
+          referred_id: string | null
+          referrer_id: string
+          status: string
+        }
+        Insert: {
+          commission_cents?: number
+          created_at?: string
+          id?: string
+          referred_email?: string | null
+          referred_id?: string | null
+          referrer_id: string
+          status?: string
+        }
+        Update: {
+          commission_cents?: number
+          created_at?: string
+          id?: string
+          referred_email?: string | null
+          referred_id?: string | null
+          referrer_id?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "ambassador" | "subscriber"
+      theme_pref: "feminine" | "masculine" | "neutral"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +463,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "ambassador", "subscriber"],
+      theme_pref: ["feminine", "masculine", "neutral"],
+    },
   },
 } as const
