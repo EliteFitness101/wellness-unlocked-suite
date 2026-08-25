@@ -45,7 +45,7 @@ export const Route = createFileRoute("/dashboard")({
       { property: "og:description", content: "Daily targets, plans, habits and rewards in one place." },
     ],
   }),
-  component: Dashboard;
+  component: Dashboard,
 });
 
 type HabitRow = { id: string; title: string; xp_reward: number };
