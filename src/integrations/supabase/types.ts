@@ -135,24 +135,42 @@ export type Database = {
       }
       orders: {
         Row: {
+          ambassador_id: string | null
           amount_cents: number
           created_at: string
+          currency: string
+          external_ref: string | null
           id: string
+          paid_at: string | null
           product: string
+          refunded_at: string | null
+          status: string
           user_id: string
         }
         Insert: {
+          ambassador_id?: string | null
           amount_cents?: number
           created_at?: string
+          currency?: string
+          external_ref?: string | null
           id?: string
+          paid_at?: string | null
           product: string
+          refunded_at?: string | null
+          status?: string
           user_id: string
         }
         Update: {
+          ambassador_id?: string | null
           amount_cents?: number
           created_at?: string
+          currency?: string
+          external_ref?: string | null
           id?: string
+          paid_at?: string | null
           product?: string
+          refunded_at?: string | null
+          status?: string
           user_id?: string
         }
         Relationships: []
@@ -300,6 +318,53 @@ export type Database = {
         }
         Relationships: []
       }
+      revenue_ledger: {
+        Row: {
+          agency_cents: number
+          ambassador_cents: number
+          ambassador_id: string | null
+          created_at: string
+          currency: string
+          eligible_cents: number
+          id: string
+          order_id: string
+          payout_status: string
+          reversed_at: string | null
+        }
+        Insert: {
+          agency_cents: number
+          ambassador_cents: number
+          ambassador_id?: string | null
+          created_at?: string
+          currency?: string
+          eligible_cents: number
+          id?: string
+          order_id: string
+          payout_status?: string
+          reversed_at?: string | null
+        }
+        Update: {
+          agency_cents?: number
+          ambassador_cents?: number
+          ambassador_id?: string | null
+          created_at?: string
+          currency?: string
+          eligible_cents?: number
+          id?: string
+          order_id?: string
+          payout_status?: string
+          reversed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "revenue_ledger_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: true
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -326,6 +391,26 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_product_performance: {
+        Args: never
+        Returns: {
+          product: string
+          revenue_cents: number
+          sold: number
+        }[]
+      }
+      admin_revenue_metrics: {
+        Args: { _bucket: string }
+        Returns: {
+          agency_cents: number
+          ambassador_cents: number
+          bucket_start: string
+          label: string
+          orders_count: number
+          revenue_cents: number
+          subs: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

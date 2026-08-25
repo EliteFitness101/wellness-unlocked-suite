@@ -180,31 +180,7 @@ export const tabs = [
 
 export type SubscriberTab = (typeof tabs)[number];
 
-/** Admin analytics — replaced by live aggregates as real orders land. */
-export const adminSeries = {
-  daily: [
-    { label: "Mon", subs: 18, revenue: 1240 },
-    { label: "Tue", subs: 24, revenue: 1680 },
-    { label: "Wed", subs: 21, revenue: 1490 },
-    { label: "Thu", subs: 32, revenue: 2210 },
-    { label: "Fri", subs: 41, revenue: 3050 },
-    { label: "Sat", subs: 37, revenue: 2740 },
-    { label: "Sun", subs: 29, revenue: 1980 },
-  ],
-  monthly: [
-    { label: "Jan", subs: 210, revenue: 14200 },
-    { label: "Feb", subs: 268, revenue: 18900 },
-    { label: "Mar", subs: 331, revenue: 24100 },
-    { label: "Apr", subs: 402, revenue: 30500 },
-    { label: "May", subs: 468, revenue: 36800 },
-    { label: "Jun", subs: 551, revenue: 44300 },
-  ],
-  products: [
-    { name: "Signature 12-week program", sold: 184, revenue: 27600 },
-    { name: "Luxe meal-plan subscription", sold: 412, revenue: 16480 },
-    { name: "Recovery accessory bundle", sold: 96, revenue: 7680 },
-    { name: "1:1 ambassador coaching", sold: 38, revenue: 19000 },
-  ],
-};
-
-export const AGENCY_SHARE = 0.18;
+/** Canonical revenue allocation — enforced in the database (revenue_ledger). */
+export const AMBASSADOR_SHARE = 0.4;
+export const AGENCY_SHARE = 0.6;
+export const AGENCY_SHARE_LABEL = "Agency Logistics & System Integrity";
