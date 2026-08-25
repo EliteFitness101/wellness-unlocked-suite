@@ -45,7 +45,7 @@ export const Route = createFileRoute("/dashboard")({
       { property: "og:description", content: "Daily targets, plans, habits and rewards in one place." },
     ],
   }),
-  component: Dashboard;
+  component: Dashboard,
 });
 
 type HabitRow = { id: string; title: string; xp_reward: number };
@@ -280,7 +280,7 @@ function MealsTab({ userId }: { userId: string }) {
       user_id: userId,
       kind: "meal",
       title: plan.title,
-      payload: plan as unknown as Record<string, unknown>,
+      payload: JSON.parse(JSON.stringify(plan)),
     });
     toast.success("Meal plan saved");
   };
@@ -339,7 +339,7 @@ function TrainingTab({ userId }: { userId: string }) {
       user_id: userId,
       kind: "workout",
       title: plan.title,
-      payload: plan as unknown as Record<string, unknown>,
+      payload: JSON.parse(JSON.stringify(plan)),
     });
     toast.success("Training plan saved");
   };
