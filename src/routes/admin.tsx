@@ -70,7 +70,7 @@ function Admin() {
         <div>
           <p className="eyebrow">Command centre</p>
           <h1 className="font-display text-3xl sm:text-4xl">
-            {profile?.full_name ?? "Ambassador"}
+            {profile?.display_name ?? "Ambassador"}
           </h1>
         </div>
         <div className="flex items-center gap-2">
